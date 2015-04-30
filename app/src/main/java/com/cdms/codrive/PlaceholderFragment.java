@@ -6,7 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import com.software.shell.fab.ActionButton;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -17,17 +18,16 @@ public class PlaceholderFragment extends Fragment
    	public void onActivityCreated(Bundle savedInstanceState) 
     {
    		super.onActivityCreated(savedInstanceState);
-   		Button add =(Button)getActivity().findViewById(R.id.composebutton);
-   		add.setOnClickListener(new View.OnClickListener() 
-   		{
-			
-			@Override
-			public void onClick(View v) 
-			{
-				Intent i=new Intent("com.cdms.codrive.SelectFriend");
-				startActivity(i);
-			}
-		});
+
+        ActionButton actionButton = (ActionButton)getActivity().findViewById(R.id.action_button);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent("com.cdms.codrive.SelectFriend");
+                startActivity(i);
+            }
+        });
+
    	}
 
     

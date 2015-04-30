@@ -90,7 +90,7 @@ public class MainActivity extends ActionBarActivity
         {
             if(position==0)
             {
-                return "Notifications";
+                return "Notification";
             }
             else if(position==1)
             {

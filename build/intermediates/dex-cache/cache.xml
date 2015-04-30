@@ -23,11 +23,25 @@
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-f2475d096856c32faa936b7ff4bfa43c0a0f3d62.jar" />
     </item>
     <item
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.github.shell-software\fab\1.0.5\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="21b7e1533326a38d45ea24d04c6acfcbf8ea33af">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-a512f48ad8c886b1b6804483b467371e89fceb80.jar" />
+    </item>
+    <item
         jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\ParseCrashReporting-1.8.4.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="7b8c09ef5c6ca33b44568f5ecfeb3e722f1792dd">
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.8.4-688967c7c19d96a1fab1659187167206111e6f7b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\Parse-1.8.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2936811d4ec66a394b7dd8b26c2d1d760e938741">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\Parse-1.8.4-6a34f7143658aa71ad791c66d20b01ea389b8919.jar" />
     </item>
     <item
         jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
@@ -37,25 +51,11 @@
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-36551f249ff9cddffec0e0ff0b91f67e66767f9b.jar" />
     </item>
     <item
-        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\android-support-v13.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d1581cddcb7a8670146268559e8931d85822d4a0">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\android-support-v13-e9f38dbd8dc7dcb1d03901be5a85d611096bdfe8.jar" />
-    </item>
-    <item
         jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\bolts-android-1.1.4.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="129874135e6081269ace2312092031558865de12">
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4-f611a577e92ba5910ba77ab178d023fb38730ca4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\Parse-1.8.4.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2936811d4ec66a394b7dd8b26c2d1d760e938741">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\Parse-1.8.4-6a34f7143658aa71ad791c66d20b01ea389b8919.jar" />
     </item>
     <item
         jar="C:\Users\Danish Goel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"

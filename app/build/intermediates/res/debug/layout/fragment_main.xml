@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -17,13 +18,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
         android:text="fragment"/>
-    
-    <Button 
-        android:id="@+id/composebutton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="bottom|right"
-        android:background="@drawable/compose"/>
+
+        <com.software.shell.fab.ActionButton
+            android:id="@+id/action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|right"
+            fab:image="@drawable/fab_plus_icon"
+            fab:button_color="@color/fab_material_lime_500"
+            fab:button_colorPressed="@color/fab_material_lime_900"
+            fab:shadow_color="#757575"
+            fab:shadow_radius="4.0dp"
+            fab:show_animation="@anim/fab_roll_from_down"
+            fab:hide_animation="@anim/fab_roll_to_down"
+            />
+
     </FrameLayout>
 
 </RelativeLayout>
