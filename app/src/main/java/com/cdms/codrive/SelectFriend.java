@@ -3,31 +3,24 @@ package com.cdms.codrive;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cdms.codrive.classes.Constants;
 import com.cdms.codrive.classes.Interaction;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SelectFriend extends Activity 
 {
 
 	ListView listview;
-	List<ParseObject> persons=new ArrayList<>();
-	List<String> personName = new ArrayList<>();
 	String filePath, responseString;
 	ParseObject gameScore;
 	
@@ -36,66 +29,33 @@ public class SelectFriend extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_friend);
-		listview=(ListView)findViewById(R.id.listview);
-		new BgTask().execute();
+        listview=(ListView)findViewById(R.id.listview);
+
+        String[] values = Constants.personName.toArray(new String[Constants.personName.size()]);
+        Log.d("values", values.toString());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SelectFriend.this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id)
+            {
+                int itemPosition     = position;
+                String  itemValue    = (String) listview.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(),
+                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        .show();
+                showFileChooser();
+
+
+            }
+
+        });
 	}
 	
-	public class BgTask extends AsyncTask<Void, Void, Void> 
-	{
 
-	    @Override
-	    protected void onPreExecute()
-	    {
-	        super.onPreExecute();
-	    }
-
-	    @Override
-	    protected Void doInBackground(Void... params)
-	    {
-	    	ParseQuery<ParseObject> queryUsers=new ParseQuery<>("_User");
-	    	try 
-	    	{
-				persons=queryUsers.find();
-				for(ParseObject po:persons)
-		    	{
-		    		personName.add(po.getString("username"));
-		    	}
-			} 
-	    	catch (ParseException e) 
-			{
-				e.printStackTrace();
-			}
-	    	Log.d("values1",personName.toString());
-	        return null;
-	    }
-	    @Override
-	    protected void onPostExecute(Void result)
-	    {
-	    	
-		      String[] values = personName.toArray(new String[personName.size()]);
-		      Log.d("values",values.toString());
-		      ArrayAdapter<String> adapter = new ArrayAdapter<String>(SelectFriend.this,android.R.layout.simple_list_item_1, android.R.id.text1, values);
-		      listview.setAdapter(adapter); 
-
-		      listview.setOnItemClickListener(new OnItemClickListener() 
-		      {
-	 
-	                  @Override
-	                  public void onItemClick(AdapterView<?> parent, View view,int position, long id) 
-	                  {
-	                   int itemPosition     = position;
-	                   String  itemValue    = (String) listview.getItemAtPosition(position);
-	                    Toast.makeText(getApplicationContext(),
-	                      "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-	                      .show();
-	                    showFileChooser();
-	                    
-	                 
-	                  }
-	    
-		      });
-	    }
-	}
 	
 	private static final int FILE_SELECT_CODE = 0;
 

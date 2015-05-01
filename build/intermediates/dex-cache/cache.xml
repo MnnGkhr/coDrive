@@ -16,13 +16,6 @@
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-fe14e08ce838b86687878b57257fb6e3d5b5f323.jar" />
     </item>
     <item
-        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-f2475d096856c32faa936b7ff4bfa43c0a0f3d62.jar" />
-    </item>
-    <item
         jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.github.shell-software\fab\1.0.5\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -37,18 +30,18 @@
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.8.4-688967c7c19d96a1fab1659187167206111e6f7b.jar" />
     </item>
     <item
-        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\Parse-1.8.4.jar"
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="2936811d4ec66a394b7dd8b26c2d1d760e938741">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\Parse-1.8.4-6a34f7143658aa71ad791c66d20b01ea389b8919.jar" />
+        sha1="c6d79137693d494dee16372d3921f919eb724ced">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-cf42da6394a66fc57f11aa09e8a4319d6c440747.jar" />
     </item>
     <item
-        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-36551f249ff9cddffec0e0ff0b91f67e66767f9b.jar" />
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-81f3c1f28a96cfe61ce179288e62a085b3274d53.jar" />
     </item>
     <item
         jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\bolts-android-1.1.4.jar"
@@ -58,11 +51,32 @@
         <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4-f611a577e92ba5910ba77ab178d023fb38730ca4.jar" />
     </item>
     <item
-        jar="C:\Users\Danish Goel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="C:\Users\Danish Goel\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.0.0\support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-ad0a1d3736ca89f83a971bf73ff409f6fbdd1d20.jar" />
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\support-annotations-22.0.0-438dc06cc090200ff5c2ad231d215eefa99af887.jar" />
+    </item>
+    <item
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\libs\Parse-1.8.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2936811d4ec66a394b7dd8b26c2d1d760e938741">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\Parse-1.8.4-6a34f7143658aa71ad791c66d20b01ea389b8919.jar" />
+    </item>
+    <item
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="11842de6a309c447b3a3d60d73ad637a87c58994">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\classes-a0cb883c8b6ea200d378ad412430544b9eba8aa0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.0.0\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="C:\Users\Danish Goel\AndroidstudioProjects\CoDrive\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-8e087404b8d0b249faa3991e36808d54372d4528.jar" />
     </item>
 
 </items>
