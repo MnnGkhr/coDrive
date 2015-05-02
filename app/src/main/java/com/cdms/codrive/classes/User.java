@@ -15,7 +15,12 @@ public class User {
 	{
 		return this.parseUser.getEmail();
 	}
-	
+
+    public String getObjectId()
+    {
+        return this.parseUser.getObjectId();
+    }
+
 	//null check for Activity
 	public Exception login(String username, String password)
 	{

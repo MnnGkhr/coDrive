@@ -4,11 +4,11 @@
     <eat-comment/>
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- API 14 theme customizations can go here. -->
-         <item name="colorPrimary">#0E629B</item>
-        <item name="colorPrimaryDark">#1E91D0</item>
-        <item name="colorAccent">#1E91D0</item>
-        <item name="colorControlActivated">#1E91D0</item>
-        <item name="android:statusBarColor">#0E629B</item>
+         <item name="colorPrimary">#00B6A5</item>
+        <item name="colorPrimaryDark">#00B6A5</item>
+        <item name="colorAccent">#00B6A5</item>
+        <item name="colorControlActivated">#00B6A5</item>
+        <item name="android:statusBarColor">#00B6A5</item>
     </style>
     <!-- From: file:/C:/Users/Danish%20Goel/AndroidstudioProjects/CoDrive/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values-v21/values.xml -->
     <eat-comment/>
