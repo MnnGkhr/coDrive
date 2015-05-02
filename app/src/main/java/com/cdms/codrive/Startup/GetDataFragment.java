@@ -13,11 +13,12 @@ import com.cdms.codrive.classes.Constants;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 /**
  * Created by Danish Goel on 01-May-15.
  */
-public class GetFriendsFragment extends Fragment
+public class GetDataFragment extends Fragment
 {
     TextView header_progress_bar;
     ParseObject remove_self_object;
@@ -46,13 +47,15 @@ public class GetFriendsFragment extends Fragment
         @Override
         protected Void doInBackground(Void... params)
         {
-            ParseQuery<ParseObject> queryUsers=new ParseQuery<>("_User");
+            ParseQuery<ParseUser> queryUsers=new ParseQuery<>("_User");
+            Constants.getInteractions();
             try
             {
                 Constants.persons=queryUsers.find();
-                for(ParseObject po:Constants.persons)
+                for(ParseUser po:Constants.persons)
                 {
-                    if(!po.getString("username").equals(Constants.user.getEmail()))
+
+                    if(!po.getEmail().equals(Constants.user.getEmail()))
                     {
                         Constants.personName.add(po.getString("username"));
                     }

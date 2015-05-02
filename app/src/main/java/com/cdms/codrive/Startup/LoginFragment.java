@@ -13,6 +13,8 @@ import com.cdms.codrive.R;
 import com.cdms.codrive.classes.Constants;
 import com.cdms.codrive.classes.User;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class LoginFragment extends Fragment
@@ -28,13 +30,11 @@ public class LoginFragment extends Fragment
 
         header_progress_bar=(TextView)getActivity().findViewById(R.id.header_progess_bar);
         header_progress_bar.setText("Logging in..");
-
         new BgTask().execute();
     }
 
 	public class BgTask extends AsyncTask<Void, Void, Void>
 	{
-
 	    @Override
 	    protected void onPreExecute()
 	    {
@@ -48,13 +48,13 @@ public class LoginFragment extends Fragment
 	        User newuser=new User();
 	        newuser.setParseUser(user);
 	        Constants.user=newuser;
-	        
+	        Constants.ownerUser=newuser;
 	        return null;
 	    }
 	    @Override
 	    protected void onPostExecute(Void result)
 	    {
-            Fragment mFragment = new GetFriendsFragment();
+            Fragment mFragment = new GetDataFragment();
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.view_fragment_container, mFragment).commit();
 	    }
@@ -87,6 +87,7 @@ public class LoginFragment extends Fragment
 				try
                 {
 					user.save();
+                    parseInstallation(user);
 				} 
 				catch (ParseException e) 
 				{	
@@ -109,6 +110,7 @@ public class LoginFragment extends Fragment
 					user.setEmail(googleId);
 				try {
 					user.save();
+                    parseInstallation(user);
 				} catch (ParseException e) {	}
 			}
 			//Log.d("asdf","2");
@@ -123,6 +125,7 @@ public class LoginFragment extends Fragment
 				user.setEmail(googleId);
 				user.setPassword("password");
 				user.signUp(); debugStr+="2";
+                parseInstallation(user);
 				return user;
 			}
 			catch(Exception excep)
@@ -132,6 +135,14 @@ public class LoginFragment extends Fragment
 		
 		return null;
 	}
+
+    public void parseInstallation(ParseUser parseUser) throws ParseException {
+        ParseInstallation pi = ParseInstallation.getCurrentInstallation();
+//        pi.put("user",parseUser);
+        pi.put("user", ParseObject.createWithoutData("_User",parseUser.getObjectId()));
+        pi.save();
+
+    }
 	
 }
 

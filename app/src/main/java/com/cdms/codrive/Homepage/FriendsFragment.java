@@ -25,9 +25,11 @@ public class FriendsFragment extends Fragment
         super.onActivityCreated(savedInstanceState);
 
         ActionButton actionButton = (ActionButton)getActivity().findViewById(R.id.action_button);
+        actionButton.getShowAnimation();
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(getActivity(),"Click",Toast.LENGTH_SHORT).show();
                 Intent i=new Intent("com.cdms.codrive.SelectFriend");
                 startActivity(i);
@@ -49,7 +51,7 @@ public class FriendsFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.friends_layout, container, false);
         return rootView;
     }
 

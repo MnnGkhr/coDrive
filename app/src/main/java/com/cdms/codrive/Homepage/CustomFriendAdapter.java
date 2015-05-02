@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cdms.codrive.R;
-import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class CustomFriendAdapter extends RecyclerView.Adapter<CustomFriendAdapter.ViewHolder>
 {
-    private List<ParseObject> friends;
+    private List<ParseUser> friends;
     Context context;
 
     List<String> colors=new ArrayList<String>(
@@ -40,7 +40,7 @@ public class CustomFriendAdapter extends RecyclerView.Adapter<CustomFriendAdapte
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CustomFriendAdapter(List<ParseObject> friends, Context context)
+    public CustomFriendAdapter(List<ParseUser> friends, Context context)
     {
         this.friends = friends;
         this.context = context;
@@ -62,7 +62,7 @@ public class CustomFriendAdapter extends RecyclerView.Adapter<CustomFriendAdapte
     public void onBindViewHolder(ViewHolder holder, int position)
     {
             Log.d("postition", "post" + position);
-            ((TextView) holder.cardView.findViewById(R.id.name)).setText(friends.get(position).getString("username"));
+            ((TextView) holder.cardView.findViewById(R.id.name)).setText(friends.get(position).getUsername());
             ((LinearLayout) holder.cardView.findViewById(R.id.header)).setBackgroundColor(Color.parseColor(getCardColor(position)));
             holder.cardView.setOnClickListener(new MyOnClickListener(position));
     }

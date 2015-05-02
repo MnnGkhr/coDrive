@@ -25,7 +25,7 @@ public class HomepageActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.homepage);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         toolbar.setTitle("CoDrive");
@@ -108,7 +108,7 @@ public class HomepageActivity extends ActionBarActivity
         {
            if(position==0)
            {
-               return new PlaceholderFragment();
+               return new NotificationsFragment();
            }
             if(position==1)
             {
@@ -116,7 +116,7 @@ public class HomepageActivity extends ActionBarActivity
             }
             else
             {
-                return new PlaceholderFragment();
+                return new FileLogFragment();
             }
 
         }

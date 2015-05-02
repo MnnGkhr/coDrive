@@ -1,11 +1,5 @@
 package com.cdms.codrive.classes;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.util.Log;
@@ -16,9 +10,16 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Interaction {
 	
 	private ParseObject po;
+    private ParseObject serverStatus;
 	private User fromUser;
 	private User toUser;
 	private MyData data;
@@ -36,11 +37,25 @@ public class Interaction {
 		this.fromUser = null;
 		this.toUser = null;
 		this.data = null;
+        this.serverStatus=null;
 	}
-	
-	public enum Status
+
+    public ParseObject getServerStatus() {
+        return serverStatus;
+    }
+
+    @Override
+    public String toString() {
+        return this.getFromUser().toString()+this.getToUser().toString()+this.getStatus().toString()+this.getType().toString();
+    }
+
+    public String getObjectId() {
+        return this.po.getObjectId();
+    }
+
+    public enum Status
 	{
-		DEMAND, REQUEST, REQUEST_ACCEPTED, ON_SERVER, COMPLETED, REJECTED
+        REQUEST_SENT,ON_SERVER,REQUEST_ACCEPTED, REQUEST_COMPLETED, REQUEST_REJECTED
 	}
 	
 	public enum Type
@@ -138,6 +153,54 @@ public class Interaction {
 	{
 		this.po.save();
 	}
+
+    public static List<Interaction> getServerStatus(User user) throws ParseException {
+        final String KEY_KEEPER = "keeper";
+        final String KEY_OWNER = "owner";
+        final String TABLE_INTERACTION = "Interaction";
+        final String TABLE_SERVER_STATUS = "ServerStatus";
+        final String TABLE_DATA = "Data";
+        //user query to tell server whose queries we need
+        ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
+        queryUser.whereEqualTo("objectId", user.parseUser.getObjectId());
+        //Interaction query parts to tell we need objects where either the from or to is our user
+        List<ParseQuery<ParseObject>> listQueries = new ArrayList<>();
+        ParseQuery<ParseObject> querySS1 = new ParseQuery<>(TABLE_SERVER_STATUS);
+        querySS1.whereMatchesQuery(KEY_KEEPER, queryUser);
+        listQueries.add(querySS1);
+        ParseQuery<ParseObject> querySS2 = new ParseQuery<>(TABLE_SERVER_STATUS);
+        querySS2.whereMatchesQuery(KEY_OWNER, queryUser);
+        listQueries.add(querySS2);
+        //constructing final query
+        ParseQuery<ParseObject> querySS = ParseQuery.or(listQueries);
+        querySS.setLimit(1000);
+        querySS.include(TABLE_INTERACTION.toLowerCase());
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_FROM_USER);
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_TO_USER);
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_DATA); //need to add the same line to parts if need be
+        //downloading and converting parse objects
+        List<ParseObject> listPo = querySS.find();
+        List<Interaction> listInteractions = new ArrayList<Interaction>();
+        for(ParseObject each2 : listPo)
+        {
+            ParseObject each = each2.getParseObject(TABLE_INTERACTION.toLowerCase());
+            Interaction interaction = new Interaction();
+            // TODO add from to user values if added later
+            User fromUser = new User();
+            fromUser.parseUser = each.getParseUser(FIELD_FROM_USER);
+            interaction.fromUser = fromUser;
+            User toUser = new User();
+            toUser.parseUser = each.getParseUser(FIELD_TO_USER);
+            interaction.toUser = toUser;
+            //assigning parse object for other values to be fetched
+            interaction.po = each;
+            //assigning data objects
+            interaction.data = interaction.new MyData(each.getParseObject(FIELD_DATA));
+            interaction.serverStatus=each2;
+            listInteractions.add(interaction);
+        }
+        return listInteractions;
+    }
 	
 	public static List<Interaction> getInteractions(User user, int limit) throws ParseException
 	{

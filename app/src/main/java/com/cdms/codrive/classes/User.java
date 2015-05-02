@@ -6,8 +6,26 @@ import com.parse.ParseUser;
 public class User {
 	
 	protected ParseUser parseUser;
-	
-	public void setParseUser(ParseUser parseUser) {
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this.getEmail().equals(((User) o).getEmail()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.getEmail();
+    }
+
+    public void setParseUser(ParseUser parseUser) {
 		this.parseUser = parseUser;
 	}
 

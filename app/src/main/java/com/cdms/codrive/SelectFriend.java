@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cdms.codrive.classes.Constants;
+import com.cdms.codrive.classes.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -51,6 +52,9 @@ public class SelectFriend extends Activity
                 Toast.makeText(getApplicationContext(),
                         "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
                         .show();
+                User keeper=new User();
+                keeper.setParseUser(Constants.persons.get(position));
+                Constants.keeperUser=keeper;
                 showFileChooser();
             }
 
