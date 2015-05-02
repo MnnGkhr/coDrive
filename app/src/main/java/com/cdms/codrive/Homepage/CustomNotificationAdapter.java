@@ -2,6 +2,7 @@ package com.cdms.codrive.Homepage;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,9 +16,15 @@ import android.widget.Toast;
 import com.cdms.codrive.R;
 import com.cdms.codrive.classes.Constants;
 import com.cdms.codrive.classes.Interaction;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotificationAdapter.ViewHolder>
 {
@@ -74,7 +81,26 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
                 content.append("File from ");
                 content.append(notifications.get(position).getFromUser());
                 content.append(" is ready to be downloaded");
+                holder.cardView.setOnClickListener(new DownloadFileListener(position));
             }
+
+        if(notifications.get(position).getType().equals(Interaction.Type.RETRIEVE) && notifications.get(position).getStatus().equals(Interaction.Status.REQUEST_SENT)
+                && !notifications.get(position).getFromUser().equals(Constants.user))
+        {
+            content.append(notifications.get(position).getFromUser().getEmail());
+            content.append(" wants his file back");
+            holder.cardView.setOnClickListener(new AcceptRetrieveListener(position));
+        }
+
+        if(notifications.get(position).getType().equals(Interaction.Type.RETRIEVE) && notifications.get(position).getStatus().equals(Interaction.Status.REQUEST_ACCEPTED)
+                && !notifications.get(position).getFromUser().equals(Constants.user))
+        {
+            content.append("Click to upload ");
+            content.append(notifications.get(position).getDataParseObject().getString("name"));
+            content.append(" for ");
+            content.append(notifications.get(position).getFromUser().getEmail());
+            holder.cardView.setOnClickListener(new FileRetrieveListener(position));
+        }
 
             ((TextView) holder.cardView.findViewById(R.id.content)).setText(content.toString());
 
@@ -86,6 +112,41 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
     public int getItemCount()
     {
         return notifications.size();
+    }
+
+    class DownloadFileListener implements View.OnClickListener
+    {
+
+        int index;
+
+        public DownloadFileListener(int position) {
+            this.index = position;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.custom_dialogbox_download);
+            dialog.setTitle("Request");
+
+            Button okbutton=(Button)dialog.findViewById(R.id.download);
+            okbutton.setOnClickListener(new View.OnClickListener()
+            {
+
+                @Override
+                public void onClick(View v)
+                {
+                    new DownloadFileTask(index).execute();
+                    Log.d("parse cloud",v.getId()+"2");
+                    dialog.dismiss();
+                }
+            });
+
+            Button cancelbutton=(Button)dialog.findViewById(R.id.later);
+            cancelbutton.setVisibility(View.INVISIBLE);
+            dialog.show();
+        }
     }
 
     class MyOnClickListener implements View.OnClickListener
@@ -127,6 +188,7 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, "reject", Toast.LENGTH_SHORT).show();
+                    notifications.remove(index);
                     dialog.dismiss();
                     try {
                         Constants.RespondToStoreRequest(false,notifications.get(index).getServerStatus().getObjectId());
@@ -139,5 +201,123 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
             dialog.show();
         }
     }
+
+    public class DownloadFileTask extends AsyncTask<Void, Void, Void>
+    {
+        int index;
+
+        DownloadFileTask(int position)
+        {
+            this.index=position;
+        }
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params)
+        {
+//            ParseFile parseFile = data.getParseFile();
+//            byte[] bytes = parseFile.getData();
+//            FileOutputStream fos = new FileOutputStream(f);
+//            fos.write(bytes);
+//            fos.close();
+
+            Map<String, Object> param=new HashMap<>();
+            param.put("serverStatusId", notifications.get(index).getServerStatus().getObjectId());
+            try {
+                ParseCloud.callFunction("CompleteStoreRequest", param);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                Log.d("parse cloud",e.getLocalizedMessage()+"4");
+            }
+            ParseFile pf= notifications.get(index).getData();
+            ParseObject po=notifications.get(index).getDataParseObject();
+            try {
+                Constants.storeFile(pf,po.getString("name"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result)
+        {
+        }
+    }
+
+    class AcceptRetrieveListener implements View.OnClickListener
+    {
+
+        int index;
+
+        public AcceptRetrieveListener(int position) {
+            this.index = position;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.custom_dialogbox_retrive_input);
+            dialog.setTitle("Request");
+
+            Button okbutton=(Button)dialog.findViewById(R.id.yesupload);
+            okbutton.setOnClickListener(new View.OnClickListener()
+            {
+
+                @Override
+                public void onClick(View v)
+                {
+                    Toast.makeText(context,"accept",Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    try {
+                        Constants.RespondToRetrieveRequest(true, notifications.get(index).getServerStatus().getObjectId());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            Button cancelbutton=(Button)dialog.findViewById(R.id.notnow);
+            cancelbutton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "reject", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    try {
+                        Constants.RespondToRetrieveRequest(false, notifications.get(index).getServerStatus().getObjectId());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            dialog.show();
+        }
+    }
+
+    class FileRetrieveListener implements View.OnClickListener
+    {
+
+        int index;
+
+        public FileRetrieveListener(int position) {
+            this.index = position;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+
+        }
+    }
+
 
 }

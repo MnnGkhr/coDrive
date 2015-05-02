@@ -155,6 +155,7 @@ public class SelectFriend extends Activity
                         }
                     }
                 });
+
                 return null;
             }
 

@@ -201,6 +201,47 @@ public class Interaction {
         }
         return listInteractions;
     }
+
+    public static List<Interaction> getMyOwnerInteractions(User userOwner) throws ParseException {
+        //final String KEY_KEEPER = "keeper";
+        final String KEY_OWNER = "owner";
+        final String TABLE_INTERACTION = "Interaction";
+        final String TABLE_SERVER_STATUS = "ServerStatus";
+        final String TABLE_DATA = "Data";
+        //user query to tell server whose queries we need
+        ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
+        queryUser.whereEqualTo("objectId", userOwner.parseUser.getObjectId());
+        //Interaction query parts to tell we need objects where user is the owner
+        ParseQuery<ParseObject> querySS = new ParseQuery<>(TABLE_SERVER_STATUS);
+        querySS.whereMatchesQuery(KEY_OWNER, queryUser);;
+        querySS.setLimit(1000);
+        querySS.include(TABLE_INTERACTION.toLowerCase());
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_FROM_USER);
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_TO_USER);
+        querySS.include(TABLE_INTERACTION.toLowerCase() + "." + FIELD_DATA); //need to add the same line to parts if need be
+        //downloading and converting parse objects
+        List<ParseObject> listPo = querySS.find();
+        List<Interaction> listInteractions = new ArrayList<Interaction>();
+        for(ParseObject each2 : listPo)
+        {
+            ParseObject each = each2.getParseObject(TABLE_INTERACTION.toLowerCase());
+            Interaction interaction = new Interaction();
+            // TODO add from to user values if added later
+            User fromUser = new User();
+            fromUser.parseUser = each.getParseUser(FIELD_FROM_USER);
+            interaction.fromUser = fromUser;
+            User toUser = new User();
+            toUser.parseUser = each.getParseUser(FIELD_TO_USER);
+            interaction.toUser = toUser;
+            //assigning parse object for other values to be fetched
+            interaction.po = each;
+            //assigning data objects
+            interaction.data = interaction.new MyData(each.getParseObject(FIELD_DATA));
+            interaction.serverStatus=each2;
+            listInteractions.add(interaction);
+        }
+        return listInteractions;
+    }
 	
 	public static List<Interaction> getInteractions(User user, int limit) throws ParseException
 	{
@@ -243,7 +284,7 @@ public class Interaction {
 		return listInteractions;
 	}
 	
-	public static List<Interaction> getAllInteractions(User user) throws ParseException
+	public static List<Interaction> getAllInteractions2(User user) throws ParseException
 	{
 		return getInteractions(user, 1000);
 	}
@@ -265,7 +306,21 @@ public class Interaction {
 		}
 		return listLog;
 	}
-	
+
+    public String getDataObjectId()
+    {
+        return this.data.getObjectId();
+    }
+
+    public ParseObject getDataParseObject()
+    {
+        return this.data.po;
+    }
+
+	public ParseFile getData()
+    {
+        return this.data.getParseFile();
+    }
 	public class MyData
 	{
 		private ParseFile pf;
@@ -294,6 +349,11 @@ public class Interaction {
 //			po.put(FIELD_TYPE, type);
 //		}
 		
+
+        protected String getObjectId()
+        {
+            return this.po==null?null:this.po.getObjectId();
+        }
 
 		protected MyData(File file)
 		{

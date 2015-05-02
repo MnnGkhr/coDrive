@@ -77,7 +77,6 @@ public class HomepageActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter
     {
         public ScreenSlidePagerAdapter(android.support.v4.app.FragmentManager fm)

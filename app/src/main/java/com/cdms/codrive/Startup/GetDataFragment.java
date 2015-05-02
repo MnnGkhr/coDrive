@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.cdms.codrive.R;
 import com.cdms.codrive.classes.Constants;
+import com.cdms.codrive.classes.Interaction;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -48,6 +49,11 @@ public class GetDataFragment extends Fragment
         protected Void doInBackground(Void... params)
         {
             ParseQuery<ParseUser> queryUsers=new ParseQuery<>("_User");
+            try {
+                Constants.filelog=Interaction.getMyOwnerInteractions(Constants.user);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Constants.getInteractions();
             try
             {
