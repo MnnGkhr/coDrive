@@ -119,14 +119,14 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
         }
 
          ((TextView) holder.cardView.findViewById(R.id.content)).setText(content.toString());
-        if(entered)
-        {
-
-        }
-        else
-        {
-            holder.cardView.setVisibility(View.INVISIBLE);
-        }
+//        if(entered)
+//        {
+//
+//        }
+//        else
+//        {
+//            holder.cardView.setVisibility(View.INVISIBLE);
+//        }
 
     }
 
@@ -390,7 +390,7 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
         public void onClick(View v)
         {
             final Dialog dialog = new Dialog(context);
-            dialog.setContentView(R.layout.custom_dialogbox_retrieve_upload);
+            dialog.setContentView(R.layout.custom_dialogbox_retrieval_download);
             dialog.setTitle("Request");
 
             Button okbutton=(Button)dialog.findViewById(R.id.yesdownload);
@@ -400,8 +400,8 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
                 @Override
                 public void onClick(View v)
                 {
-                    dialog.dismiss();
                     new DownloadRetrievalFileTask(index).execute();
+                    dialog.dismiss();
                 }
             });
 

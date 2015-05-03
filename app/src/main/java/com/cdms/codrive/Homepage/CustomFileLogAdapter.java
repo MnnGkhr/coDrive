@@ -83,7 +83,7 @@ public class CustomFileLogAdapter extends RecyclerView.Adapter<CustomFileLogAdap
 //                content.append(" is ready to be downloaded");
 //                holder.cardView.setOnClickListener(new DownloadFileListener(position));
 //            }
-            content.append("Your file is with ");
+            content.append("Your file ");
             content.append(filelogs.get(position).getDataParseObject().getString("name"));
             content.append(" is with ");
             content.append(filelogs.get(position).getToUser().getEmail());
