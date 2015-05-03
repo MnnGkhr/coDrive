@@ -109,7 +109,8 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
             entered=true;
         }
 
-        if(notifications.get(position).getType().equals(Interaction.Type.RETRIEVE) && notifications.get(position).getStatus().equals(Interaction.Status.ON_SERVER))
+        if(notifications.get(position).getType().equals(Interaction.Type.RETRIEVE) && notifications.get(position).getStatus().equals(Interaction.Status.ON_SERVER)
+        && !notifications.get(position).getToUser().equals(Constants.user))
         {
             content.append("Click to download your ");
             content.append(notifications.get(position).getDataParseObject().getString("name"));
@@ -211,13 +212,13 @@ public class CustomNotificationAdapter extends RecyclerView.Adapter<CustomNotifi
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context, "reject", Toast.LENGTH_SHORT).show();
-                    notifications.remove(index);
                     dialog.dismiss();
                     try {
                         Constants.RespondToStoreRequest(false,notifications.get(index).getServerStatus().getObjectId());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    notifications.remove(index);
                 }
             });
 
